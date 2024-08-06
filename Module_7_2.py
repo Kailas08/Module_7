@@ -1,0 +1,23 @@
+def custom_write(file_name, strings):
+    strings_positions = {}
+    file = open(file_name, 'w', encoding='utf-8')
+    try:
+        for line_number, string in enumerate(strings, start=1):
+            start_byte = file.tell()  # Получаем текущую позицию указателя файла перед записью строки
+            file.write(string + '\n')
+            strings_positions[(line_number, start_byte)] = string  # Сохраняем строку и ее начальную позицию
+    finally:
+        file.close()  # Закрываем файл после завершения всех итераций
+    return strings_positions
+
+
+info = [
+    'Text for tell.',
+    'Используйте кодировку utf-8.',
+    'Because there are 2 languages!',
+    'Спасибо!'
+]
+
+result = custom_write('test.txt', info)
+for elem in result.items():
+    print(elem)
